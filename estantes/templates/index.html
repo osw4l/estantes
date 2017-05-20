@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Almacen</title>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+</head>
+<body>
+	<div class="container" style="padding-top: 20px" align="center">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h2>Buscar en el almacen</h2>
+					</div>
+					<form method="post">{% csrf_token %}
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-12">
+									<input type="text" placeholder="Escriba el codigo del estante o referencia" name="dato" class="form-control" required="true">
+								</div>
+							</div>
+						</div>
+						<div class="panel-footer" align="center">
+							<button class="btn btn-success">
+								Buscar <i class="fa fa-search"></i>
+							</button>
+						</div>				
+					</form>	
+				</div>
+			</div>
+			<div class="col-md-6">
+				{% if estante %}
+				<table class="table table-stripped table-bordered table-responsive table-hover">
+					<thead>
+						<tr>
+							<th class="text-center">id</th>
+							<th class="text-center">estante</th>
+							<th class="text-center">referencia</th>
+							<th class="text-center">cantidad</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="text-center">
+								{{ estante.id }}
+							</td>
+							<td class="text-center">
+								{{ estante.codigo }}
+							</td>
+							<td class="text-center">
+								{{ estante.referencias }}
+							</td>
+							<td class="text-center">
+								{{ estante.cantidad }}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="alert alert-success" role="alert" align="center">
+					<strong>
+						Registro Encontrado
+						<i class="fa fa-check"></i>
+					</strong>
+				</div>
+				{% elif error %}
+					<div class="alert alert-danger" role="alert" align="center">
+						<strong>
+							Registro no encontrado 
+							<i class="fa fa-close"></i>
+						</strong>
+					</div>
+				{% else %}
+					<div class="alert alert-warning" role="alert" align="center">
+						<strong class="text-center">
+							Escriba en el cuadro de al aldo para comenzar a buscar
+						</strong>					
+					</div>
+				{% endif %}
+			</div>
+			<div class="col-md-2">
+				<a href="{% url 'admin:index' %}" class="btn btn-info btn-lg">
+					Ir al administrador <i class="fa fa-bug"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
