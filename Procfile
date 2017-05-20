@@ -1,1 +1,1 @@
-web: gunicorn estantes.wsgi
+web: gunicorn almacen.wsgi
